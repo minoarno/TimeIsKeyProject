@@ -16,6 +16,9 @@ public class GameController : MonoBehaviour
     public int TopSand => _topSand;
     private int _topSand = 0;
     [SerializeField] private int _initialSand = 500;
+    public int MaxSand = 1000;
+    [Min(1)]
+    public int SandTransferValue = 10;
 
     private float _lastTimeCheck = 0;
     [SerializeField] private float _timeCheckDelay = 1f;
@@ -47,14 +50,12 @@ public class GameController : MonoBehaviour
         if (_lastTimeCheck + _timeCheckDelay > Time.time) return;
         _lastTimeCheck = Time.time;
 
-        if (_topSand < 0)
-        {
-            Lose();
-            return;
-        }
+        if (_topSand <= 0) return;
 
-        _topSand--;
-        _bottomSand++;
+        int sandTransferValue = SandTransferValue;
+        if(sandTransferValue > _topSand) sandTransferValue = _topSand;
+        _topSand -= sandTransferValue;
+        _bottomSand += sandTransferValue;
     }
 
     public void Flip()

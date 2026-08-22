@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SandMaterial
+  m_Name: SandMaterial 1
   m_Shader: {fileID: -6465566751694194690, guid: 8aa42634eb2078044ab77ce92701bcb2, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -54,11 +54,11 @@ Material:
     m_Ints: []
     m_Floats:
     - _BotSandAmount: -1.95
-    - _Bottom: -2.5
+    - _Bottom: -0.8
     - _EnableExternalAlpha: 0
     - _SandAmount: 0
-    - _Top: -2.49
-    - _TopSandAmount: -2.5
+    - _Top: 3
+    - _TopSandAmount: 0
     - _ZWrite: 0
     m_Colors:
     - White: {r: 1, g: 1, b: 1, a: 1}
