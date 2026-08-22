@@ -20,14 +20,21 @@ public class FlipBehaviour : MonoBehaviour
 
     private void Update()
     {
+        FlipUpdate();
+    }
+
+    public virtual void FlipUpdate()
+    {
         float currentAngle = transform.eulerAngles.z;
+        if (currentAngle == _desiredRotation) return;
+
         float difference = (_desiredRotation - currentAngle) % 360;
         if (difference < 0f) difference += 360;
 
         transform.rotation = Quaternion.Euler(0, 0, currentAngle + difference * _rotationSpeed * Time.deltaTime);
     }
 
-    public void Flip()
+    public virtual void Flip()
     {
         _desiredRotation += 180;
     }

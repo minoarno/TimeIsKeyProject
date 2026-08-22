@@ -8,11 +8,14 @@ public class GameController : MonoBehaviour
     public int Age => _age;
     private int _age = 0;
 
-    public int Sand => _sand;
-    private int _sand = 0;
-    [SerializeField] private int _initialSand = 500;
+    public Enums.PlacementType CurrentPlacementType => _currentPlacementType;
+    private Enums.PlacementType _currentPlacementType = Enums.PlacementType.Moons;
 
-    [SerializeField] private int _sandlossPerTurn = 100;
+    public int BottomSand => _bottomSand;
+    private int _bottomSand = 0;
+    public int TopSand => _topSand;
+    private int _topSand = 0;
+    [SerializeField] private int _initialSand = 500;
 
     private float _lastTimeCheck = 0;
     [SerializeField] private float _timeCheckDelay = 1f;
@@ -35,7 +38,7 @@ public class GameController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        _sand = _initialSand;
+        _topSand = _initialSand;
     }
 
     // Update is called once per frame
@@ -44,12 +47,14 @@ public class GameController : MonoBehaviour
         if (_lastTimeCheck + _timeCheckDelay > Time.time) return;
         _lastTimeCheck = Time.time;
 
-        _sand--;
-
-        if( _sand < 0 )
+        if (_topSand < 0)
         {
             Lose();
+            return;
         }
+
+        _topSand--;
+        _bottomSand++;
     }
 
     public void Flip()
@@ -59,7 +64,11 @@ public class GameController : MonoBehaviour
             _flippers[i].Flip();
         }
         _age++;
-        _sand -= _sandlossPerTurn;
+        _currentPlacementType = (Enums.PlacementType)(_age % 2);
+
+        int tempSand = _bottomSand;
+        _bottomSand = _topSand;
+        _topSand = tempSand;
     }
 
     public void SubscribeFlipper(FlipBehaviour flipper)

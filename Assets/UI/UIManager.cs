@@ -2,7 +2,23 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    public TMPro.TMP_Text sandText;
+
+    public TMPro.TMP_Text currentAgeText;
+    public TMPro.TMP_Text sandTopText;
+    public TMPro.TMP_Text sandBottomText;
+
+    public static UIManager Instance;
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     public void Flip()
     {
@@ -11,16 +27,18 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        UpdateSand();
+        UpdateTexts();
     }
 
     private void LateUpdate()
     {
-        UpdateSand();
+        UpdateTexts();
     }
 
-    public void UpdateSand()
+    public void UpdateTexts()
     {
-        sandText.text = "Sand: " + GameController.Instance.Sand;
+        currentAgeText.text = "Age: " + GameController.Instance.CurrentPlacementType;
+        sandTopText.text = "Sand left: " + GameController.Instance.TopSand;
+        sandBottomText.text = "Sand gained: " + GameController.Instance.BottomSand;
     }
 }
